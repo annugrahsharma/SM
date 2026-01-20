@@ -1,19 +1,11 @@
-import { HashRouter, Routes, Route } from 'react-router-dom'
-import Login from './components/Login'
-import Signup from './components/Signup'
-import Onboarding from './components/onboarding/Onboarding'
-import Dashboard from './components/dashboard/Dashboard'
-import { OnboardingProvider } from './context/OnboardingContext'
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'
+import Feed from './components/quotes/Feed'
+import Profile from './components/quotes/Profile'
+import Search from './components/quotes/Search'
+import Saved from './components/quotes/Saved'
+import About from './components/quotes/About'
 import './styles/App.css'
-
-// Wrapper component for onboarding with provider
-function OnboardingWrapper() {
-  return (
-    <OnboardingProvider>
-      <Onboarding />
-    </OnboardingProvider>
-  )
-}
+import './styles/quotes.css'
 
 function App() {
   return (
@@ -21,11 +13,12 @@ function App() {
       <div className="app-container">
         <div className="mobile-frame">
           <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/onboarding" element={<OnboardingWrapper />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/" element={<Navigate to="/feed" replace />} />
+            <Route path="/feed" element={<Feed />} />
+            <Route path="/profile/:authorId" element={<Profile />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/saved" element={<Saved />} />
+            <Route path="/about" element={<About />} />
           </Routes>
         </div>
       </div>
