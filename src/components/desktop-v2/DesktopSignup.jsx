@@ -128,7 +128,7 @@ function DesktopSignup() {
 
             <label className="d2-checkbox-row">
               <input type="checkbox" name="agreeToTerms" checked={formData.agreeToTerms} onChange={handleChange} />
-              <span>I agree to the <a href="#" className="d2-link">Terms & Conditions</a> and <a href="#" className="d2-link">Privacy Policy</a></span>
+              <span>I agree to the <button type="button" className="d2-link" onClick={e => e.preventDefault()}>Terms & Conditions</button> and <button type="button" className="d2-link" onClick={e => e.preventDefault()}>Privacy Policy</button></span>
             </label>
 
             <button type="submit" className="d2-submit-btn" disabled={isSubmitting}>

@@ -117,7 +117,7 @@ function DesktopLogin() {
             <div className="d2-input-group">
               <div className="d2-label-row">
                 <label className="d2-label" htmlFor="d2-password">Password</label>
-                <a href="#" className="d2-forgot-link">Forgot password?</a>
+                <button type="button" className="d2-forgot-link" onClick={(e) => e.preventDefault()}>Forgot password?</button>
               </div>
               <div className="d2-password-wrap">
                 <input
