@@ -4,6 +4,9 @@ import Signup from './components/Signup'
 import Onboarding from './components/onboarding/Onboarding'
 import Dashboard from './components/dashboard/Dashboard'
 import DesktopLogin from './components/desktop-v2/DesktopLogin'
+import DesktopSignup from './components/desktop-v2/DesktopSignup'
+import DesktopOnboarding from './components/desktop-v2/DesktopOnboarding'
+import DesktopDashboard from './components/desktop-v2/DesktopDashboard'
 import { OnboardingProvider } from './context/OnboardingContext'
 import './styles/App.css'
 
@@ -25,6 +28,9 @@ function AppLayout() {
     return (
       <Routes>
         <Route path="/desktop-v2/login" element={<DesktopLogin />} />
+        <Route path="/desktop-v2/signup" element={<DesktopSignup />} />
+        <Route path="/desktop-v2/onboarding" element={<DesktopOnboarding />} />
+        <Route path="/desktop-v2/dashboard" element={<DesktopDashboard />} />
       </Routes>
     )
   }
