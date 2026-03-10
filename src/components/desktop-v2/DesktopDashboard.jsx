@@ -19,6 +19,7 @@ function SuperMorpheusLogo({ size = 32 }) {
 
 const getInitials = (first, last) => `${first?.charAt(0) || ''}${last?.charAt(0) || ''}`
 const statusClass = (s) => s === 'super' ? 'super' : s === 'active' ? 'active' : 'basic'
+const statusLabel = (s) => s === 'super' ? 'Super Member' : s === 'active' ? 'Active Member' : 'Basic Member'
 
 const NAV_ITEMS = [
   { key: 'home', label: 'Home', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> },
@@ -27,9 +28,118 @@ const NAV_ITEMS = [
   { key: 'profile', label: 'Profile', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> },
 ]
 
+// ---- Member Detail Panel ----
+function MemberDetail({ member, onClose }) {
+  if (!member) return null
+  return (
+    <div className="d2d-member-overlay" onClick={onClose}>
+      <div className="d2d-member-detail" onClick={e => e.stopPropagation()}>
+        <button className="d2d-detail-close" onClick={onClose} type="button">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+
+        {/* Header */}
+        <div className="d2d-detail-header">
+          <div className={`d2d-detail-avatar d2d-avatar--${statusClass(member.status)}`}>
+            {getInitials(member.firstName, member.lastName)}
+          </div>
+          <h2 className="d2d-detail-name">{member.firstName} {member.lastName}</h2>
+          <p className="d2d-detail-role">{member.currentRole} at {member.currentOrganization}</p>
+          <div className="d2d-detail-meta">
+            <span className="d2d-detail-location">📍 {member.livesIn}</span>
+            <span className={`d2d-status-pill d2d-status--${statusClass(member.status)}`}>{statusLabel(member.status)}</span>
+          </div>
+        </div>
+
+        {/* About */}
+        <div className="d2d-detail-section">
+          <h3 className="d2d-detail-section-title">About</h3>
+          <p className="d2d-detail-text">{member.introduction}</p>
+        </div>
+
+        {/* Tags */}
+        {member.tags && member.tags.length > 0 && (
+          <div className="d2d-detail-section">
+            <h3 className="d2d-detail-section-title">Interests</h3>
+            <div className="d2d-detail-tags">
+              {member.tags.map(tag => (
+                <span key={tag} className="d2d-detail-tag">{tag}</span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Contact */}
+        <div className="d2d-detail-section">
+          <h3 className="d2d-detail-section-title">Contact</h3>
+          <div className="d2d-detail-contact">
+            <div className="d2d-detail-contact-row">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+              <span>{member.email}</span>
+            </div>
+            <div className="d2d-detail-contact-row">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>{member.phone}</span>
+            </div>
+            <div className="d2d-detail-contact-row">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>{member.livesIn}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="d2d-detail-actions">
+          <button className="d2d-detail-btn d2d-detail-btn--primary" type="button">Connect</button>
+          <button className="d2d-detail-btn d2d-detail-btn--secondary" type="button">Message</button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function DesktopDashboard() {
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState('home')
+  const [selectedMember, setSelectedMember] = useState(null)
+
+  const openMember = (m) => setSelectedMember(m)
+  const closeMember = () => setSelectedMember(null)
+
+  // Helper: clickable table row builder
+  const MemberTable = ({ memberList }) => (
+    <table className="d2d-table">
+      <thead>
+        <tr><th>Name</th><th>Role</th><th>Location</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        {memberList.map(m => (
+          <tr key={m.id} className="d2d-table-row--clickable" onClick={() => openMember(m)}>
+            <td>
+              <div className="d2d-table-user">
+                <div className={`d2d-avatar-sm d2d-avatar--${statusClass(m.status)}`}>{getInitials(m.firstName, m.lastName)}</div>
+                <div>
+                  <span className="d2d-table-name">{m.firstName} {m.lastName}</span>
+                  <span className="d2d-table-org">{m.currentOrganization}</span>
+                </div>
+              </div>
+            </td>
+            <td>{m.currentRole}</td>
+            <td>{m.livesIn}</td>
+            <td><span className={`d2d-status-pill d2d-status--${statusClass(m.status)}`}>{m.status}</span></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )
+
+  // Helper: clickable member chip
+  const MemberChip = ({ m }) => (
+    <div className="d2d-member-chip d2d-member-chip--clickable" onClick={() => openMember(m)}>
+      <div className={`d2d-avatar d2d-avatar--${statusClass(m.status)}`}>{getInitials(m.firstName, m.lastName)}</div>
+      <span>{m.firstName}</span>
+    </div>
+  )
 
   // ---- Tab content renderers ----
 
@@ -78,12 +188,7 @@ function DesktopDashboard() {
           <button className="d2d-see-all" onClick={() => setActiveTab('members')}>See all</button>
         </div>
         <div className="d2d-member-avatars">
-          {newMembers.map(m => (
-            <div key={m.id} className="d2d-member-chip">
-              <div className={`d2d-avatar d2d-avatar--${statusClass(m.status)}`}>{getInitials(m.firstName, m.lastName)}</div>
-              <span>{m.firstName}</span>
-            </div>
-          ))}
+          {newMembers.map(m => <MemberChip key={m.id} m={m} />)}
         </div>
       </div>
 
@@ -107,29 +212,7 @@ function DesktopDashboard() {
           <h3>All Members</h3>
           <button className="d2d-see-all" onClick={() => setActiveTab('members')}>{stats.totalMembers} members</button>
         </div>
-        <table className="d2d-table">
-          <thead>
-            <tr><th>Name</th><th>Role</th><th>Location</th><th>Status</th></tr>
-          </thead>
-          <tbody>
-            {members.map(m => (
-              <tr key={m.id}>
-                <td>
-                  <div className="d2d-table-user">
-                    <div className={`d2d-avatar-sm d2d-avatar--${statusClass(m.status)}`}>{getInitials(m.firstName, m.lastName)}</div>
-                    <div>
-                      <span className="d2d-table-name">{m.firstName} {m.lastName}</span>
-                      <span className="d2d-table-org">{m.currentOrganization}</span>
-                    </div>
-                  </div>
-                </td>
-                <td>{m.currentRole}</td>
-                <td>{m.livesIn}</td>
-                <td><span className={`d2d-status-pill d2d-status--${statusClass(m.status)}`}>{m.status}</span></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <MemberTable memberList={members} />
       </div>
     </div>
   )
@@ -142,36 +225,9 @@ function DesktopDashboard() {
           <span className="d2d-member-count">{stats.totalMembers} members</span>
         </div>
         <div className="d2d-member-avatars" style={{ marginBottom: '24px' }}>
-          {newMembers.map(m => (
-            <div key={m.id} className="d2d-member-chip">
-              <div className={`d2d-avatar d2d-avatar--${statusClass(m.status)}`}>{getInitials(m.firstName, m.lastName)}</div>
-              <span>{m.firstName}</span>
-            </div>
-          ))}
+          {newMembers.map(m => <MemberChip key={m.id} m={m} />)}
         </div>
-        <table className="d2d-table">
-          <thead>
-            <tr><th>Name</th><th>Role</th><th>Location</th><th>Status</th></tr>
-          </thead>
-          <tbody>
-            {members.map(m => (
-              <tr key={m.id}>
-                <td>
-                  <div className="d2d-table-user">
-                    <div className={`d2d-avatar-sm d2d-avatar--${statusClass(m.status)}`}>{getInitials(m.firstName, m.lastName)}</div>
-                    <div>
-                      <span className="d2d-table-name">{m.firstName} {m.lastName}</span>
-                      <span className="d2d-table-org">{m.currentOrganization}</span>
-                    </div>
-                  </div>
-                </td>
-                <td>{m.currentRole}</td>
-                <td>{m.livesIn}</td>
-                <td><span className={`d2d-status-pill d2d-status--${statusClass(m.status)}`}>{m.status}</span></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <MemberTable memberList={members} />
       </div>
     </div>
   )
@@ -205,7 +261,6 @@ function DesktopDashboard() {
         <h2 style={{ fontSize: 24, fontWeight: 700, color: '#2d3a2e', marginBottom: 4 }}>{currentUser.firstName} {currentUser.lastName}</h2>
         <p style={{ color: '#6b7c6e', marginBottom: 4 }}>{currentUser.currentRole} at {currentUser.currentOrganization}</p>
         <p style={{ color: '#8a9a8c', marginBottom: 24 }}>📍 {currentUser.livesIn}</p>
-
         <div className="d2d-completion-bar-track" style={{ maxWidth: 300, margin: '0 auto 8px' }}>
           <div className="d2d-completion-bar-fill" style={{ width: `${currentUser.profileCompletion}%` }} />
         </div>
@@ -253,7 +308,7 @@ function DesktopDashboard() {
             <button
               key={item.key}
               className={`d2d-nav-item ${activeTab === item.key ? 'active' : ''}`}
-              onClick={() => setActiveTab(item.key)}
+              onClick={() => { setActiveTab(item.key); setSelectedMember(null) }}
             >
               {item.icon}
               {item.label}
@@ -294,6 +349,9 @@ function DesktopDashboard() {
 
         {tabRenderers[activeTab]()}
       </main>
+
+      {/* Member Detail Overlay */}
+      {selectedMember && <MemberDetail member={selectedMember} onClose={closeMember} />}
     </div>
   )
 }
