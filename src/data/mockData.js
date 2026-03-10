@@ -29,7 +29,8 @@ export const currentUser = {
     earlyLife: null,
     professionalJourney: null,
     currentLife: null
-  }
+  },
+  lifeStories: null
 }
 
 export const members = [
@@ -62,6 +63,31 @@ export const members = [
       earlyLife: 'recorded',
       professionalJourney: 'recorded',
       currentLife: 'recorded'
+    },
+    lifeStories: {
+      earlyLife: {
+        tags: ['Small Town', 'Curious Mind', 'Science Olympiad'],
+        bornIn: 'Jaipur, Rajasthan',
+        hometown: 'Jaipur',
+        schools: ['St. Xavier\'s School, Jaipur'],
+        universities: ['IIT Delhi — B.Tech Computer Science', 'Stanford University — MS Computer Science'],
+        summary: 'Grew up in the pink city surrounded by art and history, but was always drawn to taking things apart and putting them back together. Won the national Science Olympiad at 14, which sparked a lifelong love for problem-solving. My parents ran a small bookshop, and I spent evenings reading everything from astrophysics to philosophy.',
+        videoDuration: '12:34'
+      },
+      professional: {
+        tags: ['Google', 'EdTech', 'Founder', 'Y Combinator'],
+        firstJob: 'Google — Software Engineer (Mountain View)',
+        subsequentJobs: ['Google — Senior Engineer, Search Quality', 'TechStart India — Founder & CEO'],
+        summary: 'Joined Google straight out of Stanford and spent 6 years building search algorithms. The turning point was a trip home to Jaipur where I saw kids learning from outdated textbooks while I was optimizing code for billions. Left Google in 2022, joined Y Combinator with TechStart India, and haven\'t looked back.',
+        videoDuration: '17:01'
+      },
+      current: {
+        tags: ['Mumbai Life', 'Building in Public', 'Mentorship'],
+        organizations: [{ role: 'Founder & CEO', org: 'TechStart India' }, { role: 'Advisor', org: 'WomenWhoCode India' }],
+        travelCities: ['Jaipur', 'Bengaluru', 'San Francisco', 'Singapore'],
+        summary: 'Today I lead a team of 45 people building India\'s most accessible EdTech platform. We serve 2 million students across 500 districts. When I\'m not at work, I\'m either on stage performing Bharatanatyam or on my terrace with a telescope, chasing the Milky Way.',
+        videoDuration: '9:22'
+      }
     }
   },
   {
@@ -93,6 +119,25 @@ export const members = [
       earlyLife: 'recorded',
       professionalJourney: 'recorded',
       currentLife: null
+    },
+    lifeStories: {
+      earlyLife: {
+        tags: ['Village Life', 'Nature', 'Engineering'],
+        bornIn: 'Varanasi, UP',
+        hometown: 'Varanasi',
+        schools: ['Kendriya Vidyalaya, Varanasi'],
+        universities: ['IIT Kanpur — B.Tech Electrical Engineering'],
+        summary: 'Growing up on the banks of the Ganga, I saw firsthand how pollution and energy poverty affected everyday life. My grandmother\'s village had only 4 hours of electricity a day. That childhood memory became the seed for everything I\'m building today.',
+        videoDuration: '10:08'
+      },
+      professional: {
+        tags: ['Consulting', 'Solar', 'Clean Energy', 'Startup'],
+        firstJob: 'McKinsey & Company — Associate (Energy Practice)',
+        subsequentJobs: ['Tata Power Solar — Strategy Lead', 'GreenEnergy Solutions — Co-Founder'],
+        summary: 'Spent 3 years at McKinsey advising energy companies, then moved to Tata Power Solar to get hands-on with the industry. Co-founded GreenEnergy Solutions in 2021 to bring solar power directly to rural India, bypassing the grid entirely.',
+        videoDuration: '14:22'
+      },
+      current: null
     }
   },
   {
@@ -124,6 +169,31 @@ export const members = [
       earlyLife: 'recorded',
       professionalJourney: 'recorded',
       currentLife: 'recorded'
+    },
+    lifeStories: {
+      earlyLife: {
+        tags: ['Music', 'Chess', 'South India'],
+        bornIn: 'Madurai, Tamil Nadu',
+        hometown: 'Madurai',
+        schools: ['Meenakshi Ammal School, Madurai'],
+        universities: ['BITS Pilani — B.E. Computer Science', 'University of Michigan — MS Data Science'],
+        summary: 'Raised in a family of doctors, I was the rebel who chose computers over stethoscopes. Started programming at 12, built my first database at 15 to track my father\'s clinic patients. Carnatic music and chess were my two escapes — one taught me discipline, the other taught me strategy.',
+        videoDuration: '11:45'
+      },
+      professional: {
+        tags: ['Amazon', 'Flipkart', 'HealthTech', 'CTO'],
+        firstJob: 'Amazon — Software Development Engineer (Hyderabad)',
+        subsequentJobs: ['Flipkart — Principal Engineer, Data Platform', 'HealthFirst — CTO'],
+        summary: 'Built recommendation systems at Amazon for 5 years, then led Flipkart\'s data platform team. When my mother was misdiagnosed due to fragmented medical records, I knew where technology was needed most. Joined HealthFirst as CTO to build India\'s first unified health data platform.',
+        videoDuration: '15:30'
+      },
+      current: {
+        tags: ['Chennai', 'Tech Leadership', 'Digital Health'],
+        organizations: [{ role: 'CTO', org: 'HealthFirst' }, { role: 'Board Member', org: 'DataHealth Alliance' }],
+        travelCities: ['Bengaluru', 'Hyderabad', 'Singapore', 'Boston'],
+        summary: 'Today we serve 500+ hospitals and 15 million patient records. I split my time between deep technical work and speaking about digital health at conferences. Weekends are reserved for Carnatic music recitals at the local sabha and scuba diving trips to Pondicherry.',
+        videoDuration: '10:15'
+      }
     }
   },
   {
@@ -155,6 +225,19 @@ export const members = [
       earlyLife: 'recorded',
       professionalJourney: null,
       currentLife: null
+    },
+    lifeStories: {
+      earlyLife: {
+        tags: ['Army Brat', 'Nomad', 'Resilience'],
+        bornIn: 'Dehradun, Uttarakhand',
+        hometown: 'Multiple cities (Army family)',
+        schools: ['Army Public School (multiple cities)'],
+        universities: ['NIT Surathkal — B.Tech Electronics', 'ISB Hyderabad — MBA'],
+        summary: 'An army brat who changed schools 8 times before turning 18. Every new posting meant new friends, new cultures. It made me adaptable and gave me an acute understanding of how different India really is — the spark behind building financial products for diverse communities.',
+        videoDuration: '9:50'
+      },
+      professional: null,
+      current: null
     }
   },
   {
@@ -186,7 +269,8 @@ export const members = [
       earlyLife: null,
       professionalJourney: null,
       currentLife: null
-    }
+    },
+    lifeStories: null
   },
   {
     id: 'member-006',
@@ -217,11 +301,36 @@ export const members = [
       earlyLife: 'recorded',
       professionalJourney: 'recorded',
       currentLife: 'recorded'
+    },
+    lifeStories: {
+      earlyLife: {
+        tags: ['Kerala', 'Backwaters', 'Debate Champion'],
+        bornIn: 'Kochi, Kerala',
+        hometown: 'Kochi',
+        schools: ['Loyola School, Thiruvananthapuram'],
+        universities: ['IIM Ahmedabad — MBA', 'NIT Trichy — B.Tech Mechanical Engineering'],
+        summary: 'Grew up in Kerala\'s backwaters where my grandfather ran a small cargo boat business. Watching him optimize routes by intuition planted the seed for my lifelong obsession with logistics. Won the National Debate Championship in college, which taught me to think on my feet.',
+        videoDuration: '10:30'
+      },
+      professional: {
+        tags: ['Supply Chain', 'Flipkart', 'AI', 'Logistics'],
+        firstJob: 'Flipkart — Supply Chain Analyst',
+        subsequentJobs: ['Flipkart — Head of Last Mile Delivery', 'LogiTech Solutions — Founder & CEO'],
+        summary: 'Flipkart was my playground for learning supply chain at scale. Led the last-mile delivery team that grew from 10 to 500 cities. Left to start LogiTech Solutions when I realized AI could solve the inefficiencies I kept seeing. Today we process 2 million shipments monthly.',
+        videoDuration: '13:45'
+      },
+      current: {
+        tags: ['Hyderabad', 'AI in Logistics', 'Running'],
+        organizations: [{ role: 'CEO', org: 'LogiTech Solutions' }, { role: 'Mentor', org: 'T-Hub Hyderabad' }],
+        travelCities: ['Mumbai', 'Delhi', 'Dubai', 'London'],
+        summary: 'Based in Jubilee Hills with a team of 120 spread across 5 cities. I\'m training for my first marathon while also building India\'s largest logistics AI platform. Weekends are for cricket at Hitex grounds and reading about the East India Company\'s supply chain (ironic, I know).',
+        videoDuration: '8:55'
+      }
     }
   }
 ]
 
-export const newMembers = members.slice(0, 4) // Last 4 members as "new"
+export const newMembers = members.slice(0, 4)
 
 export const events = [
   {
