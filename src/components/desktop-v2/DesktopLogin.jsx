@@ -111,7 +111,6 @@ function DesktopLogin() {
                 value={formData.email}
                 onChange={handleChange}
                 autoComplete="email"
-                required
               />
             </div>
 
@@ -130,7 +129,6 @@ function DesktopLogin() {
                   value={formData.password}
                   onChange={handleChange}
                   autoComplete="current-password"
-                  required
                 />
                 <button
                   type="button"

@@ -49,8 +49,6 @@ function DesktopSignup() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (formData.password !== formData.confirmPassword) { alert('Passwords do not match!'); return }
-    if (!formData.agreeToTerms) { alert('Please agree to the Terms & Conditions'); return }
     setIsSubmitting(true)
     setTimeout(() => { setIsSubmitting(false); navigate('/desktop-v2/onboarding') }, 600)
   }
@@ -98,31 +96,31 @@ function DesktopSignup() {
             <div className="d2-row">
               <div className="d2-input-group">
                 <label className="d2-label" htmlFor="d2s-first">First Name</label>
-                <input type="text" id="d2s-first" name="firstName" className="d2-input" placeholder="John" value={formData.firstName} onChange={handleChange} required />
+                <input type="text" id="d2s-first" name="firstName" className="d2-input" placeholder="John" value={formData.firstName} onChange={handleChange} />
               </div>
               <div className="d2-input-group">
                 <label className="d2-label" htmlFor="d2s-last">Last Name</label>
-                <input type="text" id="d2s-last" name="lastName" className="d2-input" placeholder="Doe" value={formData.lastName} onChange={handleChange} required />
+                <input type="text" id="d2s-last" name="lastName" className="d2-input" placeholder="Doe" value={formData.lastName} onChange={handleChange} />
               </div>
             </div>
 
             <div className="d2-input-group">
               <label className="d2-label" htmlFor="d2s-email">Email</label>
-              <input type="email" id="d2s-email" name="email" className="d2-input" placeholder="you@example.com" value={formData.email} onChange={handleChange} autoComplete="email" required />
+              <input type="email" id="d2s-email" name="email" className="d2-input" placeholder="you@example.com" value={formData.email} onChange={handleChange} autoComplete="email" />
             </div>
 
             <div className="d2-row">
               <div className="d2-input-group">
                 <label className="d2-label" htmlFor="d2s-pass">Password</label>
                 <div className="d2-password-wrap">
-                  <input type={showPassword ? 'text' : 'password'} id="d2s-pass" name="password" className="d2-input" placeholder="Min 8 characters" value={formData.password} onChange={handleChange} required minLength={8} />
+                  <input type={showPassword ? 'text' : 'password'} id="d2s-pass" name="password" className="d2-input" placeholder="Min 8 characters" value={formData.password} onChange={handleChange} />
                   <button type="button" className="d2-eye-btn" onClick={() => setShowPassword(!showPassword)}><EyeIcon open={showPassword} /></button>
                 </div>
               </div>
               <div className="d2-input-group">
                 <label className="d2-label" htmlFor="d2s-confirm">Confirm Password</label>
                 <div className="d2-password-wrap">
-                  <input type={showConfirmPassword ? 'text' : 'password'} id="d2s-confirm" name="confirmPassword" className="d2-input" placeholder="Re-enter password" value={formData.confirmPassword} onChange={handleChange} required />
+                  <input type={showConfirmPassword ? 'text' : 'password'} id="d2s-confirm" name="confirmPassword" className="d2-input" placeholder="Re-enter password" value={formData.confirmPassword} onChange={handleChange} />
                   <button type="button" className="d2-eye-btn" onClick={() => setShowConfirmPassword(!showConfirmPassword)}><EyeIcon open={showConfirmPassword} /></button>
                 </div>
               </div>
