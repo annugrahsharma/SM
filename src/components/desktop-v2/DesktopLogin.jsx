@@ -48,16 +48,14 @@ function DesktopLogin() {
   const handleSubmit = (e) => {
     e.preventDefault()
     setIsSubmitting(true)
-    console.log('Login attempt:', formData)
     setTimeout(() => {
       setIsSubmitting(false)
-      alert('Login successful! (Mock)')
-    }, 800)
+      navigate('/desktop-v2/dashboard')
+    }, 600)
   }
 
   const handleGoogleLogin = () => {
-    console.log('Google login clicked')
-    alert('Google login clicked (Mock)')
+    navigate('/desktop-v2/dashboard')
   }
 
   return (
