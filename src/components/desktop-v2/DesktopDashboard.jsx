@@ -351,12 +351,16 @@ function MemberProfilePage({ member, onBack, isOwnProfile }) {
             {member.inspiringQuote && (
               <div className="tl-timeline-item tl-timeline-item--accent">
                 <div className="tl-timeline-dot tl-dot--accent" />
-                <div className="tl-accent-card tl-accent-card--quote">
-                  <div className="lg-filter" />
-                  <div className="lg-overlay" />
-                  <div className="lg-specular" />
-                  <span className="tl-accent-label">A quote that inspires me</span>
-                  <p className="tl-accent-text">{member.inspiringQuote}</p>
+                <div className="tl-accent-blob-wrap">
+                  <div className="tl-accent-blob tl-accent-blob--1" />
+                  <div className="tl-accent-blob tl-accent-blob--3" />
+                  <div className="tl-accent-card tl-accent-card--quote">
+                    <div className="lg-filter" />
+                    <div className="lg-overlay" />
+                    <div className="lg-specular" />
+                    <span className="tl-accent-label">A quote that inspires me</span>
+                    <p className="tl-accent-text">{member.inspiringQuote}</p>
+                  </div>
                 </div>
               </div>
             )}
@@ -373,12 +377,16 @@ function MemberProfilePage({ member, onBack, isOwnProfile }) {
             {member.joyOutsideWork && (
               <div className="tl-timeline-item tl-timeline-item--accent">
                 <div className="tl-timeline-dot tl-dot--accent" />
-                <div className="tl-accent-card tl-accent-card--joy">
-                  <div className="lg-filter" />
-                  <div className="lg-overlay" />
-                  <div className="lg-specular" />
-                  <span className="tl-accent-label">What fills me with joy</span>
-                  <p className="tl-accent-text">{member.joyOutsideWork}</p>
+                <div className="tl-accent-blob-wrap">
+                  <div className="tl-accent-blob tl-accent-blob--4" />
+                  <div className="tl-accent-blob tl-accent-blob--2" />
+                  <div className="tl-accent-card tl-accent-card--joy">
+                    <div className="lg-filter" />
+                    <div className="lg-overlay" />
+                    <div className="lg-specular" />
+                    <span className="tl-accent-label">What fills me with joy</span>
+                    <p className="tl-accent-text">{member.joyOutsideWork}</p>
+                  </div>
                 </div>
               </div>
             )}

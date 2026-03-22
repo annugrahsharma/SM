@@ -2187,29 +2187,89 @@
     inset 0 -2px 6px rgba(255, 255, 255, 0.15);
 }
 
+/* Accent card wrapper — holds colorful blobs behind glass */
+.tl-timeline-item--accent {
+  position: relative;
+}
 .tl-accent-card--quote,
 .tl-accent-card--joy {
   position: relative;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(28px) saturate(200%) brightness(1.05);
-  -webkit-backdrop-filter: blur(28px) saturate(200%) brightness(1.05);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.12),
-              0 2px 8px rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15),
+              0 2px 8px rgba(0, 0, 0, 0.08);
   color: #2d3a2e;
   overflow: hidden;
+  z-index: 1;
+}
+/* Shine line at top of card */
+.tl-accent-card--quote::before,
+.tl-accent-card--joy::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+  z-index: 4;
 }
 .tl-accent-card--quote > *:not(.lg-filter):not(.lg-overlay):not(.lg-specular),
 .tl-accent-card--joy > *:not(.lg-filter):not(.lg-overlay):not(.lg-specular) {
   position: relative;
   z-index: 3;
 }
+/* Decorative color blobs behind glass cards */
+.tl-accent-blob-wrap {
+  position: relative;
+}
+.tl-accent-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(30px);
+  z-index: 0;
+  pointer-events: none;
+}
+.tl-accent-blob--1 {
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, #648349 0%, #8ab564 100%);
+  top: -20px;
+  left: -30px;
+  opacity: 0.7;
+}
+.tl-accent-blob--2 {
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, #E2B910 0%, #f0d060 100%);
+  bottom: -15px;
+  right: -20px;
+  opacity: 0.6;
+}
+.tl-accent-blob--3 {
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, #4A90D9 0%, #6bb5ff 100%);
+  top: 10px;
+  right: 40px;
+  opacity: 0.5;
+}
+.tl-accent-blob--4 {
+  width: 110px;
+  height: 110px;
+  background: radial-gradient(circle, #d96a4a 0%, #ff9070 100%);
+  bottom: -10px;
+  left: 20px;
+  opacity: 0.5;
+}
 .tl-accent-label {
   display: block;
   font-family: var(--font-secondary);
   font-size: 13px;
-  font-weight: 500;
-  opacity: 0.8;
+  font-weight: 600;
+  color: #5a6b5c;
   margin-bottom: 10px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
