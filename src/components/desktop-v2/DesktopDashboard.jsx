@@ -537,6 +537,12 @@ function DesktopDashboard() {
         </defs>
       </svg>
       <aside className="d2d-sidebar">
+        <div className="d2d-sidebar-blob d2d-sidebar-blob--1" />
+        <div className="d2d-sidebar-blob d2d-sidebar-blob--2" />
+        <div className="d2d-sidebar-blob d2d-sidebar-blob--3" />
+        <div className="lg-filter" />
+        <div className="lg-overlay" />
+        <div className="lg-specular" />
         <div className="d2d-sidebar-brand"><SuperMorpheusLogo size={28} /><span className="d2d-brand-name">Super Morpheus</span></div>
         <nav className="d2d-nav">
           {NAV_ITEMS.map(item => (
@@ -564,6 +570,9 @@ function DesktopDashboard() {
 
       {/* Dropdown menu — slides from top */}
       <div className={`d2d-dropdown-menu ${menuOpen ? 'd2d-dropdown-open' : ''}`}>
+        <div className="d2d-sidebar-blob d2d-sidebar-blob--1" />
+        <div className="d2d-sidebar-blob d2d-sidebar-blob--2" />
+        <div className="d2d-sidebar-blob d2d-sidebar-blob--3" />
         <div className="lg-filter" />
         <div className="lg-overlay" />
         <div className="lg-specular" />
