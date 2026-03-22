@@ -1131,8 +1131,8 @@
 .d2d-dropdown-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
+  justify-content: flex-end;
+  margin-bottom: 8px;
 }
 .d2d-dropdown-close {
   width: 36px;
