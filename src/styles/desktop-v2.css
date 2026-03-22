@@ -1116,13 +1116,14 @@
   width: 260px;
   bottom: 0;
   z-index: 999;
-  background: rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border-right: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(28px) saturate(200%) brightness(1.05);
+  -webkit-backdrop-filter: blur(28px) saturate(200%) brightness(1.05);
+  border-right: 1px solid rgba(255, 255, 255, 0.5);
   box-shadow: 4px 0 32px rgba(31, 38, 135, 0.12),
-              inset 0 4px 20px rgba(255, 255, 255, 0.25);
+              0 2px 8px rgba(0, 0, 0, 0.06);
   padding: 20px 20px 24px;
+  overflow: hidden;
   transform: translateY(-100%);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
@@ -1131,24 +1132,9 @@
 .d2d-dropdown-menu.d2d-dropdown-open {
   transform: translateY(0);
 }
-.d2d-dropdown-menu::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.06);
-  box-shadow: inset -10px -8px 0px -11px rgba(255, 255, 255, 0.8),
-              inset 0px -9px 0px -8px rgba(255, 255, 255, 0.8);
-  opacity: 0.5;
-  z-index: 0;
-  pointer-events: none;
-  filter: blur(1px) brightness(110%);
-}
-.d2d-dropdown-menu > * {
+.d2d-dropdown-menu > *:not(.lg-filter):not(.lg-overlay):not(.lg-specular) {
   position: relative;
-  z-index: 1;
+  z-index: 3;
 }
 .d2d-dropdown-header {
   display: flex;
@@ -2160,39 +2146,63 @@
   padding: 24px 28px;
   color: #fff;
 }
+/* ============================================================
+   Liquid Glass Layers (reusable)
+   ============================================================ */
+.lg-filter {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  filter: url(#lg-distortion);
+  isolation: isolate;
+  border-radius: inherit;
+}
+.lg-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0.12) 40%,
+    rgba(255, 255, 255, 0.18) 60%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
+  border-radius: inherit;
+  pointer-events: none;
+}
+.lg-specular {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.75),
+    inset -1px -1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 0 8px rgba(255, 255, 255, 0.5),
+    inset 0 -2px 6px rgba(255, 255, 255, 0.15);
+}
+
 .tl-accent-card--quote,
 .tl-accent-card--joy {
   position: relative;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15),
-              inset 0 4px 20px rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(28px) saturate(200%) brightness(1.05);
+  -webkit-backdrop-filter: blur(28px) saturate(200%) brightness(1.05);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.12),
+              0 2px 8px rgba(0, 0, 0, 0.06);
   color: #2d3a2e;
   overflow: hidden;
 }
-.tl-accent-card--quote::after,
-.tl-accent-card--joy::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: inset -10px -8px 0px -11px rgba(255, 255, 255, 0.9),
-              inset 0px -9px 0px -8px rgba(255, 255, 255, 0.9);
-  opacity: 0.6;
-  z-index: 0;
-  pointer-events: none;
-  filter: blur(1px) brightness(115%);
-}
-.tl-accent-card--quote > *,
-.tl-accent-card--joy > * {
+.tl-accent-card--quote > *:not(.lg-filter):not(.lg-overlay):not(.lg-specular),
+.tl-accent-card--joy > *:not(.lg-filter):not(.lg-overlay):not(.lg-specular) {
   position: relative;
-  z-index: 1;
+  z-index: 3;
 }
 .tl-accent-label {
   display: block;
