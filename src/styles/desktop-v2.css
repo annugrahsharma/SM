@@ -1061,7 +1061,7 @@
   grid-template-columns: 260px 1fr;
   grid-template-rows: 1fr;
   height: 100vh;
-  background-color: #fafaf8;
+  background: linear-gradient(135deg, #f0f4ec 0%, #fafaf8 30%, #eef0f6 60%, #f8f6f0 100%);
 }
 
 /* Sidebar */
@@ -1437,8 +1437,12 @@
 }
 
 .d2d-card {
-  background-color: #fff;
-  border: 1px solid #ebebea;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 20px rgba(31, 38, 135, 0.06),
+              inset 0 1px 0 rgba(255,255,255,0.6);
   border-radius: 14px;
   padding: 24px;
 }
@@ -1784,9 +1788,13 @@
   justify-content: space-between;
   gap: 32px;
   padding: 32px 36px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
   border-radius: 20px;
-  border: 1px solid #eeeee8;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 20px rgba(31, 38, 135, 0.06),
+              inset 0 1px 0 rgba(255,255,255,0.6);
   margin-bottom: 24px;
 }
 .d2d-profile-hero-left {
@@ -1931,9 +1939,13 @@
 
 /* Intro card */
 .tl-intro-card {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
   border-radius: 16px;
-  border: 1px solid #eeeee8;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 20px rgba(31, 38, 135, 0.06),
+              inset 0 1px 0 rgba(255,255,255,0.6);
   padding: 28px 32px;
   margin-bottom: 24px;
 }
@@ -2013,9 +2025,13 @@
 
 /* Story card */
 .tl-story-card {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
   border-radius: 16px;
-  border: 1px solid #eeeee8;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 20px rgba(31, 38, 135, 0.06),
+              inset 0 1px 0 rgba(255,255,255,0.6);
   padding: 24px 28px;
   transition: box-shadow 0.2s ease;
 }
@@ -2327,9 +2343,13 @@
 .tl-empty-state {
   text-align: center;
   padding: 48px 24px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
   border-radius: 16px;
-  border: 1px solid #eeeee8;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 20px rgba(31, 38, 135, 0.06),
+              inset 0 1px 0 rgba(255,255,255,0.6);
 }
 .tl-empty-icon {
   font-size: 40px;
@@ -2426,9 +2446,13 @@
 
 /* Sidebar cards */
 .d2d-profile-card {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
   border-radius: 16px;
-  border: 1px solid #eeeee8;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 20px rgba(31, 38, 135, 0.06),
+              inset 0 1px 0 rgba(255,255,255,0.6);
   padding: 24px 28px;
 }
 .d2d-profile-card-title {
@@ -2596,9 +2620,13 @@
 
 /* Trailer card */
 .tl-trailer-card {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
   border-radius: 16px;
-  border: 1px solid #eeeee8;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 20px rgba(31, 38, 135, 0.06),
+              inset 0 1px 0 rgba(255,255,255,0.6);
   overflow: hidden;
   margin-bottom: 24px;
 }
