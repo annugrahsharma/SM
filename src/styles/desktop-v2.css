@@ -1059,12 +1059,9 @@
 .d2d-page {
   display: grid;
   grid-template-columns: 260px 1fr;
+  grid-template-rows: 1fr;
   height: 100vh;
   background-color: #fafaf8;
-  transition: grid-template-columns 0.3s ease;
-}
-.d2d-page.d2d-sidebar-collapsed {
-  grid-template-columns: 68px 1fr;
 }
 
 /* Sidebar */
@@ -1074,45 +1071,60 @@
   padding: 28px 20px;
   background-color: #fff;
   border-right: 1px solid #ebebea;
-  transition: padding 0.3s ease, width 0.3s ease;
   overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Collapsed: sidebar becomes horizontal top header */
+.d2d-page.d2d-sidebar-collapsed {
+  grid-template-columns: 1fr;
+  grid-template-rows: 56px 1fr;
 }
 .d2d-sidebar-collapsed .d2d-sidebar {
-  padding: 20px 10px;
-}
-.d2d-sidebar-collapsed .d2d-brand-name {
-  opacity: 0;
-  width: 0;
-  overflow: hidden;
-  transition: opacity 0.2s ease, width 0.2s ease;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 20px;
+  border-right: none;
+  border-bottom: 1px solid #ebebea;
+  gap: 4px;
 }
 .d2d-sidebar-collapsed .d2d-sidebar-brand {
-  justify-content: center;
-  gap: 0;
-  margin-bottom: 24px;
+  margin-bottom: 0;
+  margin-right: 12px;
+  gap: 8px;
+  padding: 0;
+  flex-shrink: 0;
+}
+.d2d-sidebar-collapsed .d2d-brand-name {
+  display: none;
+}
+.d2d-sidebar-collapsed .d2d-nav {
+  flex-direction: row;
+  gap: 2px;
+  flex: none;
 }
 .d2d-sidebar-collapsed .d2d-nav-item {
-  justify-content: center;
-  padding: 12px;
+  padding: 8px 12px;
   font-size: 0;
   gap: 0;
-}
-.d2d-sidebar-collapsed .d2d-nav-item svg {
-  margin: 0;
+  border-radius: 8px;
 }
 .d2d-sidebar-collapsed .d2d-sidebar-footer {
-  display: flex;
-  justify-content: center;
+  margin-top: 0;
+  margin-left: auto;
+  padding-top: 0;
+  border-top: none;
 }
 .d2d-sidebar-collapsed .d2d-user-meta {
-  opacity: 0;
-  width: 0;
-  overflow: hidden;
-  transition: opacity 0.2s ease;
+  display: none;
 }
 .d2d-sidebar-collapsed .d2d-user-pill {
   gap: 0;
-  justify-content: center;
+}
+.d2d-sidebar-collapsed .d2d-user-avatar {
+  width: 32px;
+  height: 32px;
+  font-size: 12px;
 }
 
 .d2d-sidebar-brand {
