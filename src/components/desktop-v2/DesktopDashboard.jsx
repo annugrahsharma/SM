@@ -408,6 +408,7 @@ function DesktopDashboard() {
   const [selectedMember, setSelectedMember] = useState(null)
   const [prevTab, setPrevTab] = useState('home')
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const mainRef = useRef(null)
 
   // Collapse sidebar on scroll (profile pages only)
@@ -420,7 +421,9 @@ function DesktopDashboard() {
     const el = mainRef.current
     if (!el) return
     const onScroll = () => {
-      setSidebarCollapsed(el.scrollTop > 80)
+      const collapsed = el.scrollTop > 80
+      setSidebarCollapsed(collapsed)
+      if (!collapsed) setMenuOpen(false)
     }
     el.addEventListener('scroll', onScroll, { passive: true })
     return () => el.removeEventListener('scroll', onScroll)
@@ -526,6 +529,39 @@ function DesktopDashboard() {
           </div>
         </div>
       </aside>
+
+      {/* Hamburger button — visible when sidebar collapsed */}
+      <button className="d2d-hamburger" onClick={() => setMenuOpen(true)} type="button">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2d3a2e" strokeWidth="2" strokeLinecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+
+      {/* Dropdown overlay */}
+      <div className={`d2d-dropdown-overlay ${menuOpen ? 'd2d-dropdown-open' : ''}`} onClick={() => setMenuOpen(false)} />
+
+      {/* Dropdown menu — slides from top */}
+      <div className={`d2d-dropdown-menu ${menuOpen ? 'd2d-dropdown-open' : ''}`}>
+        <div className="d2d-dropdown-header">
+          <div className="d2d-sidebar-brand" style={{ marginBottom: 0 }}><SuperMorpheusLogo size={24} /><span className="d2d-brand-name">Super Morpheus</span></div>
+          <button className="d2d-dropdown-close" onClick={() => setMenuOpen(false)} type="button">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <nav className="d2d-dropdown-nav">
+          {NAV_ITEMS.map(item => (
+            <button key={item.key} className={`d2d-nav-item ${(activeTab === item.key || (item.key === 'profile' && activeTab === 'member-profile')) ? 'active' : ''}`}
+              onClick={() => { setActiveTab(item.key); if (item.key !== 'member-profile') setSelectedMember(null); setMenuOpen(false) }}>
+              {item.icon}{item.label}
+            </button>
+          ))}
+        </nav>
+        <div className="d2d-dropdown-user">
+          <div className="d2d-user-pill" onClick={() => { setActiveTab('profile'); setMenuOpen(false) }} style={{ cursor: 'pointer' }}>
+            <div className="d2d-user-avatar">{getInitials(currentUser.firstName, currentUser.lastName)}</div>
+            <div className="d2d-user-meta"><span className="d2d-user-name">{currentUser.firstName} {currentUser.lastName}</span><span className="d2d-user-role">{currentUser.currentRole}</span></div>
+          </div>
+        </div>
+      </div>
+
       <main className="d2d-main" ref={mainRef}>
         {activeTab !== 'member-profile' && activeTab !== 'profile' && (
           <header className="d2d-topbar">
