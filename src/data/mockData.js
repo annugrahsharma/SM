@@ -109,6 +109,7 @@ export const members = [
     introduction: 'Climate tech enthusiast. Working on making renewable energy accessible to everyone. Our mission at GreenEnergy Solutions is to bring solar power to 10 million rural households by 2030.',
     inspiringQuote: '"We do not inherit the earth from our ancestors; we borrow it from our children." — Native American Proverb',
     joyOutsideWork: 'Long-distance cycling, rooftop gardening, and volunteering at local environmental NGOs.',
+    trailerAudio: { duration: '1:15' },
     status: 'active',
     tags: ['CleanTech', 'Sustainability', 'B2B', 'Impact'],
     joinedDate: '2024-09-22',
@@ -119,26 +120,28 @@ export const members = [
     contentLinks: ['https://rahulverma.medium.com'],
     otherSocialLinks: [],
     storyVideos: {
-      earlyLife: 'recorded',
-      professionalJourney: 'recorded',
+      earlyLife: null,
+      professionalJourney: null,
       currentLife: null
     },
     lifeStories: {
       earlyLife: {
+        format: 'audio',
         tags: ['Village Life', 'Nature', 'Engineering'],
         bornIn: 'Varanasi, UP',
         hometown: 'Varanasi',
         schools: ['Kendriya Vidyalaya, Varanasi'],
         universities: ['IIT Kanpur — B.Tech Electrical Engineering'],
         summary: 'Growing up on the banks of the Ganga, I saw firsthand how pollution and energy poverty affected everyday life. My grandmother\'s village had only 4 hours of electricity a day. That childhood memory became the seed for everything I\'m building today.',
-        videoDuration: '10:08'
+        audioDuration: '10:08'
       },
       professional: {
+        format: 'audio',
         tags: ['Consulting', 'Solar', 'Clean Energy', 'Startup'],
         firstJob: 'McKinsey & Company — Associate (Energy Practice)',
         subsequentJobs: ['Tata Power Solar — Strategy Lead', 'GreenEnergy Solutions — Co-Founder'],
         summary: 'Spent 3 years at McKinsey advising energy companies, then moved to Tata Power Solar to get hands-on with the industry. Co-founded GreenEnergy Solutions in 2021 to bring solar power directly to rural India, bypassing the grid entirely.',
-        videoDuration: '14:22'
+        audioDuration: '14:22'
       },
       current: null
     }
@@ -159,6 +162,7 @@ export const members = [
     introduction: 'Healthcare technology leader with 15 years of experience. Passionate about digital health and using data to improve patient outcomes. Previously built large-scale systems at Amazon and Flipkart.',
     inspiringQuote: '"The best way to predict the future is to invent it." — Alan Kay',
     joyOutsideWork: 'Carnatic music vocalist, competitive chess player, and weekend scuba diver.',
+    trailerText: 'I\'m Ananya — a doctor\'s daughter who chose code over clinics and ended up building healthcare technology anyway. After a decade at Amazon and Flipkart solving data problems at scale, a personal family crisis showed me that India\'s healthcare data was fundamentally broken. Fragmented records, siloed systems, and no patient-centric view. That\'s what I set out to fix at HealthFirst. Today we connect 500+ hospitals and 15 million patient records on a single platform. When I\'m not debugging distributed systems, you\'ll find me singing Carnatic ragas, plotting chess moves, or diving off the coast of Pondicherry.',
     status: 'super',
     tags: ['HealthTech', 'Digital Health', 'SaaS', 'Data Science'],
     joinedDate: '2024-07-05',
@@ -169,33 +173,33 @@ export const members = [
     contentLinks: ['https://ananyak.dev/blog', 'https://youtube.com/@ananyahealth'],
     otherSocialLinks: ['https://github.com/ananyak'],
     storyVideos: {
-      earlyLife: 'recorded',
-      professionalJourney: 'recorded',
-      currentLife: 'recorded'
+      earlyLife: null,
+      professionalJourney: null,
+      currentLife: null
     },
     lifeStories: {
       earlyLife: {
+        format: 'text',
         tags: ['Music', 'Chess', 'South India'],
         bornIn: 'Madurai, Tamil Nadu',
         hometown: 'Madurai',
         schools: ['Meenakshi Ammal School, Madurai'],
         universities: ['BITS Pilani — B.E. Computer Science', 'University of Michigan — MS Data Science'],
-        summary: 'Raised in a family of doctors, I was the rebel who chose computers over stethoscopes. Started programming at 12, built my first database at 15 to track my father\'s clinic patients. Carnatic music and chess were my two escapes — one taught me discipline, the other taught me strategy.',
-        videoDuration: '11:45'
+        summary: 'Raised in a family of doctors, I was the rebel who chose computers over stethoscopes. Started programming at 12 on my father\'s old desktop, building small games in BASIC. By 15, I\'d built my first real database to track his clinic patients — replacing a crumbling register book that had been there since 1985. Carnatic music and chess were my two constants through school. Music taught me discipline and the beauty of structure; chess taught me to think several moves ahead. Both would shape how I approach engineering — methodical, layered, always looking for the elegant solution.',
       },
       professional: {
+        format: 'text',
         tags: ['Amazon', 'Flipkart', 'HealthTech', 'CTO'],
         firstJob: 'Amazon — Software Development Engineer (Hyderabad)',
         subsequentJobs: ['Flipkart — Principal Engineer, Data Platform', 'HealthFirst — CTO'],
-        summary: 'Built recommendation systems at Amazon for 5 years, then led Flipkart\'s data platform team. When my mother was misdiagnosed due to fragmented medical records, I knew where technology was needed most. Joined HealthFirst as CTO to build India\'s first unified health data platform.',
-        videoDuration: '15:30'
+        summary: 'I joined Amazon Hyderabad straight out of Michigan, building recommendation systems that served 300 million customers. The scale was intoxicating — every optimization I shipped touched millions of lives. After 5 years, Flipkart recruited me to lead their data platform team, where I built the infrastructure powering their entire analytics stack. Then came the moment that changed everything. My mother was misdiagnosed because her medical history was scattered across three hospitals with no way to connect the dots. A problem I could solve. I joined HealthFirst as CTO to build India\'s first unified health data platform — and I haven\'t looked back.',
       },
       current: {
+        format: 'text',
         tags: ['Chennai', 'Tech Leadership', 'Digital Health'],
         organizations: [{ role: 'CTO', org: 'HealthFirst' }, { role: 'Board Member', org: 'DataHealth Alliance' }],
         travelCities: ['Bengaluru', 'Hyderabad', 'Singapore', 'Boston'],
-        summary: 'Today we serve 500+ hospitals and 15 million patient records. I split my time between deep technical work and speaking about digital health at conferences. Weekends are reserved for Carnatic music recitals at the local sabha and scuba diving trips to Pondicherry.',
-        videoDuration: '10:15'
+        summary: 'Today HealthFirst serves 500+ hospitals and 15 million patient records on a unified platform. I lead a team of 80 engineers building real-time clinical decision support, interoperability layers, and patient-facing apps. I split my time between deep technical work — I still review every architecture decision — and evangelizing digital health at conferences from Boston to Singapore. Weekends are sacred: Saturday mornings at the chess club, Saturday evenings singing Carnatic ragas at the local sabha, and Sundays planning the next scuba trip to Pondicherry.',
       }
     }
   },

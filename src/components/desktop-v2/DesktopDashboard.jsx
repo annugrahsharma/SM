@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { currentUser, newMembers, members, events, stats } from '../../data/mockData'
 import '../../styles/desktop-v2.css'
@@ -33,6 +33,9 @@ const Icons = {
   globe: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>,
   edit: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>,
   whatsapp: <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>,
+  audio: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>,
+  headphones: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>,
+  textDoc: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>,
   share: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>,
   showMore: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"/></svg>,
   showLess: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="18 15 12 9 6 15"/></svg>,
@@ -73,6 +76,25 @@ function ExpandableText({ text, lines = 3 }) {
   )
 }
 
+// ---- Audio Waveform (decorative) ----
+function AudioWaveform({ color, duration, barCount = 28 }) {
+  const heights = Array.from({ length: barCount }, (_, i) => {
+    const seed = Math.sin(i * 3.7 + 1.3) * 0.5 + 0.5
+    return 12 + seed * 28
+  })
+  return (
+    <div className="tl-audio-player" style={{ background: `linear-gradient(135deg, ${color}dd 0%, ${color}99 100%)` }}>
+      <div className="tl-audio-play">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21" /></svg>
+      </div>
+      <div className="tl-audio-waveform">
+        {heights.map((h, i) => <div key={i} className="tl-audio-bar" style={{ height: `${h}px` }} />)}
+      </div>
+      {duration && <span className="tl-audio-duration">{duration}</span>}
+    </div>
+  )
+}
+
 // ---- Timeline Story Card ----
 function StoryCard({ story, type, videoRecorded }) {
   const config = {
@@ -81,6 +103,7 @@ function StoryCard({ story, type, videoRecorded }) {
     current: { title: 'Current Life', emoji: '✨', color: '#4A90D9' },
   }
   const c = config[type]
+  const format = story?.format || 'video'
   if (!story && !videoRecorded) return null
 
   return (
@@ -89,16 +112,28 @@ function StoryCard({ story, type, videoRecorded }) {
       <div className="tl-story-header">
         <span className="tl-story-emoji">{c.emoji}</span>
         <h3 className="tl-story-title">{c.title}</h3>
-        {story?.videoDuration && <span className="tl-story-duration">{Icons.video} {story.videoDuration}</span>}
+        {format === 'video' && story?.videoDuration && <span className="tl-story-duration">{Icons.video} {story.videoDuration}</span>}
+        {format === 'audio' && story?.audioDuration && <span className="tl-story-duration">{Icons.headphones} {story.audioDuration}</span>}
+        {format === 'text' && <span className="tl-story-format-badge">{Icons.textDoc} Written</span>}
       </div>
 
       <div className="tl-story-divider" style={{ background: c.color }} />
 
-      {/* Video thumbnail */}
-      {videoRecorded && (
+      {/* Media: Video */}
+      {format === 'video' && videoRecorded && (
         <div className="tl-story-video" style={{ background: `linear-gradient(135deg, ${c.color}dd 0%, ${c.color}99 100%)` }}>
           <div className="tl-video-play-btn">{Icons.play}</div>
         </div>
+      )}
+
+      {/* Media: Audio waveform */}
+      {format === 'audio' && (
+        <AudioWaveform color={c.color} duration={story?.audioDuration} />
+      )}
+
+      {/* Text-first: show full summary up top with dropcap */}
+      {format === 'text' && story?.summary && (
+        <p className="tl-story-text-content">{story.summary}</p>
       )}
 
       {/* Tags */}
@@ -130,8 +165,8 @@ function StoryCard({ story, type, videoRecorded }) {
         </div>
       )}
 
-      {/* Summary */}
-      {story?.summary && <ExpandableText text={story.summary} lines={3} />}
+      {/* Summary — only for video/audio formats (text-first shows it above) */}
+      {format !== 'text' && story?.summary && <ExpandableText text={story.summary} lines={3} />}
     </div>
   )
 }
@@ -207,7 +242,7 @@ function MemberProfilePage({ member, onBack, isOwnProfile }) {
         </div>
       )}
 
-      {/* Trailer */}
+      {/* Trailer — video / audio / text / fallback questions */}
       {member.trailerVideo ? (
         <div className="tl-trailer-card">
           <div className="tl-trailer-video">
@@ -218,6 +253,26 @@ function MemberProfilePage({ member, onBack, isOwnProfile }) {
             <span className="tl-trailer-duration">{member.trailerVideo.duration || '0:30'}</span>
           </div>
         </div>
+      ) : member.trailerAudio ? (
+        <div className="tl-trailer-card">
+          <div className="tl-trailer-audio" style={{ position: 'relative' }}>
+            <AudioWaveform color="#2d3a2e" duration={member.trailerAudio.duration} barCount={40} />
+          </div>
+          <div style={{ padding: '12px 22px 14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontFamily: 'var(--font-primary)', fontSize: '13px', fontWeight: 700, color: '#6b7c6e', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Listen to Introduction</span>
+            <span style={{ fontFamily: 'var(--font-secondary)', fontSize: '13px', color: '#8a9a8c' }}>{Icons.headphones} Audio Trailer</span>
+          </div>
+        </div>
+      ) : member.trailerText ? (
+        <div className="tl-trailer-card">
+          <div className="tl-trailer-text">
+            <div className="tl-trailer-text-header">
+              <span className="tl-trailer-text-icon">📝</span>
+              <span className="tl-trailer-text-label">Read Introduction</span>
+            </div>
+            <ExpandableText text={member.trailerText} lines={4} />
+          </div>
+        </div>
       ) : (
         <div className="tl-trailer-card">
           <div className="tl-trailer-questions">
@@ -226,7 +281,7 @@ function MemberProfilePage({ member, onBack, isOwnProfile }) {
               <span className="tl-trailer-questions-title">{isOwnProfile ? 'Create Your Trailer' : `Get to Know ${member.firstName}`}</span>
             </div>
             <p className="tl-trailer-questions-subtitle">
-              {isOwnProfile ? 'Answer these questions to create a short video introduction' : `${member.firstName} hasn't recorded a trailer yet. Here's what we'd love to ask them:`}
+              {isOwnProfile ? 'Answer these questions to create a short introduction' : `${member.firstName} hasn't shared an introduction yet. Here's what we'd love to ask them:`}
             </p>
             <div className="tl-trailer-question-list">
               {(member.trailerQuestions || ['What drives you every day?', 'What\'s your superpower?', 'What would surprise people about you?']).map((q, i) => (
@@ -352,6 +407,24 @@ function DesktopDashboard() {
   const [activeTab, setActiveTab] = useState('home')
   const [selectedMember, setSelectedMember] = useState(null)
   const [prevTab, setPrevTab] = useState('home')
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const mainRef = useRef(null)
+
+  // Collapse sidebar on scroll (profile pages only)
+  useEffect(() => {
+    const isProfileTab = activeTab === 'member-profile' || activeTab === 'profile'
+    if (!isProfileTab) {
+      setSidebarCollapsed(false)
+      return
+    }
+    const el = mainRef.current
+    if (!el) return
+    const onScroll = () => {
+      setSidebarCollapsed(el.scrollTop > 80)
+    }
+    el.addEventListener('scroll', onScroll, { passive: true })
+    return () => el.removeEventListener('scroll', onScroll)
+  }, [activeTab])
 
   const openMember = (m) => { setPrevTab(activeTab); setSelectedMember(m); setActiveTab('member-profile') }
   const closeMember = () => { setSelectedMember(null); setActiveTab(prevTab) }
@@ -435,7 +508,7 @@ function DesktopDashboard() {
   const tabRenderers = { home: renderHome, members: renderMembers, events: renderEvents, profile: renderProfile, 'member-profile': renderMemberProfile }
 
   return (
-    <div className="d2d-page">
+    <div className={`d2d-page ${sidebarCollapsed ? 'd2d-sidebar-collapsed' : ''}`}>
       <aside className="d2d-sidebar">
         <div className="d2d-sidebar-brand"><SuperMorpheusLogo size={28} /><span className="d2d-brand-name">Super Morpheus</span></div>
         <nav className="d2d-nav">
@@ -453,7 +526,7 @@ function DesktopDashboard() {
           </div>
         </div>
       </aside>
-      <main className="d2d-main">
+      <main className="d2d-main" ref={mainRef}>
         {activeTab !== 'member-profile' && activeTab !== 'profile' && (
           <header className="d2d-topbar">
             <div><h1 className="d2d-greeting">{tabTitles[activeTab]}</h1><p className="d2d-greeting-sub">{tabSubtitles[activeTab]}</p></div>
