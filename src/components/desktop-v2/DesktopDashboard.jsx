@@ -160,7 +160,16 @@ function MemberProfilePage({ member, onBack, isOwnProfile }) {
             {member.profilePicture ? <img src={member.profilePicture} alt={fullName} /> : getInitials(member.firstName, member.lastName)}
           </div>
           <div className="d2d-profile-identity">
-            <h1 className="d2d-profile-name">{fullName}</h1>
+            <div className="d2d-profile-name-row">
+              <h1 className="d2d-profile-name">{fullName}</h1>
+              {!isOwnProfile && (
+                <div className="d2d-profile-hero-actions">
+                  <button className="d2d-detail-btn d2d-detail-btn--primary" type="button">Connect</button>
+                  <button className="d2d-detail-btn d2d-detail-btn--secondary" type="button">Message</button>
+                </div>
+              )}
+              {isOwnProfile && <button className="d2d-detail-btn d2d-detail-btn--secondary" type="button">{Icons.edit} Edit Profile</button>}
+            </div>
             <p className="d2d-profile-role">{member.currentRole} at {member.currentOrganization}</p>
             <div className="d2d-profile-meta-row">
               <span className="d2d-profile-meta-item">{Icons.location} {member.livesIn}</span>
@@ -176,13 +185,6 @@ function MemberProfilePage({ member, onBack, isOwnProfile }) {
         </div>
         <div className="d2d-profile-hero-right">
           <span className={`d2d-status-pill d2d-status-pill--lg d2d-status--${statusClass(member.status)}`}>{statusLabel(member.status)}</span>
-          {!isOwnProfile && (
-            <div className="d2d-profile-hero-actions">
-              <button className="d2d-detail-btn d2d-detail-btn--primary" type="button">Connect</button>
-              <button className="d2d-detail-btn d2d-detail-btn--secondary" type="button">Message</button>
-            </div>
-          )}
-          {isOwnProfile && <button className="d2d-detail-btn d2d-detail-btn--secondary" type="button">{Icons.edit} Edit Profile</button>}
         </div>
       </div>
 
@@ -205,8 +207,78 @@ function MemberProfilePage({ member, onBack, isOwnProfile }) {
         </div>
       )}
 
-      {/* Two-column: Timeline + Sidebar */}
+      {/* Trailer */}
+      {member.trailerVideo ? (
+        <div className="tl-trailer-card">
+          <div className="tl-trailer-video">
+            <div className="tl-trailer-play">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21" /></svg>
+            </div>
+            <span className="tl-trailer-label">Watch Trailer</span>
+            <span className="tl-trailer-duration">{member.trailerVideo.duration || '0:30'}</span>
+          </div>
+        </div>
+      ) : (
+        <div className="tl-trailer-card">
+          <div className="tl-trailer-questions">
+            <div className="tl-trailer-questions-header">
+              <span className="tl-trailer-questions-icon">🎬</span>
+              <span className="tl-trailer-questions-title">{isOwnProfile ? 'Create Your Trailer' : `Get to Know ${member.firstName}`}</span>
+            </div>
+            <p className="tl-trailer-questions-subtitle">
+              {isOwnProfile ? 'Answer these questions to create a short video introduction' : `${member.firstName} hasn't recorded a trailer yet. Here's what we'd love to ask them:`}
+            </p>
+            <div className="tl-trailer-question-list">
+              {(member.trailerQuestions || ['What drives you every day?', 'What\'s your superpower?', 'What would surprise people about you?']).map((q, i) => (
+                <div key={i} className="tl-trailer-question-item">
+                  <span className="tl-trailer-question-num">{i + 1}</span>
+                  <span className="tl-trailer-question-text">{q}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Two-column: Sidebar (left) + Timeline */}
       <div className="d2d-profile-content">
+        {/* Sidebar — now on the left */}
+        <div className="d2d-profile-sidebar-col">
+          {/* Coordinates / Contact */}
+          <div className="d2d-profile-card">
+            <h3 className="d2d-profile-card-title">Coordinates</h3>
+            <div className="tl-coordinates">
+              {member.email && <a href={`mailto:${member.email}`} className="tl-coord-btn"><span className="tl-coord-icon">{Icons.email}</span>{member.email}</a>}
+              {member.phone && <a href={`https://wa.me/${member.phone.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" className="tl-coord-btn"><span className="tl-coord-icon">{Icons.whatsapp}</span>WhatsApp</a>}
+              {member.linkedin && <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="tl-coord-btn"><span className="tl-coord-icon">{Icons.linkedin}</span>LinkedIn</a>}
+              {member.twitter && <a href={member.twitter} target="_blank" rel="noopener noreferrer" className="tl-coord-btn"><span className="tl-coord-icon">{Icons.twitter}</span>X / Twitter</a>}
+              {member.instagram && <a href={member.instagram} target="_blank" rel="noopener noreferrer" className="tl-coord-btn"><span className="tl-coord-icon">{Icons.instagram}</span>Instagram</a>}
+            </div>
+            {(hasContentLinks || hasOtherLinks) && (
+              <>
+                <div className="tl-coord-divider" />
+                <span className="tl-coord-sub-label">Content &amp; Links</span>
+                <div className="tl-coordinates">
+                  {member.contentLinks?.map((url, i) => <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="tl-coord-btn"><span className="tl-coord-icon">{Icons.globe}</span>{getDomainName(url)}</a>)}
+                  {member.otherSocialLinks?.map((url, i) => <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="tl-coord-btn"><span className="tl-coord-icon">{Icons.link}</span>{getDomainName(url)}</a>)}
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Details */}
+          <div className="d2d-profile-card">
+            <h3 className="d2d-profile-card-title">Details</h3>
+            <div className="d2d-profile-details-list">
+              <div className="d2d-profile-detail-item"><span className="d2d-profile-detail-label">Organization</span><span className="d2d-profile-detail-value">{member.currentOrganization}</span></div>
+              <div className="d2d-profile-detail-item"><span className="d2d-profile-detail-label">Role</span><span className="d2d-profile-detail-value">{member.currentRole}</span></div>
+              <div className="d2d-profile-detail-item"><span className="d2d-profile-detail-label">Location</span><span className="d2d-profile-detail-value">{member.livesIn}{member.locality ? `, ${member.locality}` : ''}</span></div>
+              {member.joinedDate && <div className="d2d-profile-detail-item"><span className="d2d-profile-detail-label">Member Since</span><span className="d2d-profile-detail-value">{formatDate(member.joinedDate)}</span></div>}
+              <div className="d2d-profile-detail-item"><span className="d2d-profile-detail-label">Status</span><span className="d2d-profile-detail-value"><span className={`d2d-status-pill d2d-status--${statusClass(member.status)}`}>{statusLabel(member.status)}</span></span></div>
+            </div>
+          </div>
+        </div>
+
         {/* Timeline */}
         <div className="d2d-profile-main">
           <h2 className="tl-section-heading">Life Stories</h2>
@@ -269,42 +341,6 @@ function MemberProfilePage({ member, onBack, isOwnProfile }) {
           )}
         </div>
 
-        {/* Sidebar */}
-        <div className="d2d-profile-sidebar-col">
-          {/* Coordinates / Contact */}
-          <div className="d2d-profile-card">
-            <h3 className="d2d-profile-card-title">Coordinates</h3>
-            <div className="tl-coordinates">
-              {member.email && <a href={`mailto:${member.email}`} className="tl-coord-btn"><span className="tl-coord-icon">{Icons.email}</span>{member.email}</a>}
-              {member.phone && <a href={`https://wa.me/${member.phone.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" className="tl-coord-btn"><span className="tl-coord-icon">{Icons.whatsapp}</span>WhatsApp</a>}
-              {member.linkedin && <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="tl-coord-btn"><span className="tl-coord-icon">{Icons.linkedin}</span>LinkedIn</a>}
-              {member.twitter && <a href={member.twitter} target="_blank" rel="noopener noreferrer" className="tl-coord-btn"><span className="tl-coord-icon">{Icons.twitter}</span>X / Twitter</a>}
-              {member.instagram && <a href={member.instagram} target="_blank" rel="noopener noreferrer" className="tl-coord-btn"><span className="tl-coord-icon">{Icons.instagram}</span>Instagram</a>}
-            </div>
-            {(hasContentLinks || hasOtherLinks) && (
-              <>
-                <div className="tl-coord-divider" />
-                <span className="tl-coord-sub-label">Content &amp; Links</span>
-                <div className="tl-coordinates">
-                  {member.contentLinks?.map((url, i) => <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="tl-coord-btn"><span className="tl-coord-icon">{Icons.globe}</span>{getDomainName(url)}</a>)}
-                  {member.otherSocialLinks?.map((url, i) => <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="tl-coord-btn"><span className="tl-coord-icon">{Icons.link}</span>{getDomainName(url)}</a>)}
-                </div>
-              </>
-            )}
-          </div>
-
-          {/* Details */}
-          <div className="d2d-profile-card">
-            <h3 className="d2d-profile-card-title">Details</h3>
-            <div className="d2d-profile-details-list">
-              <div className="d2d-profile-detail-item"><span className="d2d-profile-detail-label">Organization</span><span className="d2d-profile-detail-value">{member.currentOrganization}</span></div>
-              <div className="d2d-profile-detail-item"><span className="d2d-profile-detail-label">Role</span><span className="d2d-profile-detail-value">{member.currentRole}</span></div>
-              <div className="d2d-profile-detail-item"><span className="d2d-profile-detail-label">Location</span><span className="d2d-profile-detail-value">{member.livesIn}{member.locality ? `, ${member.locality}` : ''}</span></div>
-              {member.joinedDate && <div className="d2d-profile-detail-item"><span className="d2d-profile-detail-label">Member Since</span><span className="d2d-profile-detail-value">{formatDate(member.joinedDate)}</span></div>}
-              <div className="d2d-profile-detail-item"><span className="d2d-profile-detail-label">Status</span><span className="d2d-profile-detail-value"><span className={`d2d-status-pill d2d-status--${statusClass(member.status)}`}>{statusLabel(member.status)}</span></span></div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   )
