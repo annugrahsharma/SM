@@ -1116,11 +1116,12 @@
   width: 260px;
   bottom: 0;
   z-index: 999;
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(20px) saturate(1.4);
-  -webkit-backdrop-filter: blur(20px) saturate(1.4);
-  border-right: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 4px 0 32px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.5);
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-right: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 4px 0 32px rgba(31, 38, 135, 0.12),
+              inset 0 4px 20px rgba(255, 255, 255, 0.25);
   padding: 20px 20px 24px;
   transform: translateY(-100%);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1129,6 +1130,25 @@
 }
 .d2d-dropdown-menu.d2d-dropdown-open {
   transform: translateY(0);
+}
+.d2d-dropdown-menu::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset -10px -8px 0px -11px rgba(255, 255, 255, 0.8),
+              inset 0px -9px 0px -8px rgba(255, 255, 255, 0.8);
+  opacity: 0.5;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(1px) brightness(110%);
+}
+.d2d-dropdown-menu > * {
+  position: relative;
+  z-index: 1;
 }
 .d2d-dropdown-header {
   display: flex;
@@ -2140,21 +2160,39 @@
   padding: 24px 28px;
   color: #fff;
 }
-.tl-accent-card--quote {
-  background: rgba(100, 131, 73, 0.08);
-  backdrop-filter: blur(20px) saturate(1.4);
-  -webkit-backdrop-filter: blur(20px) saturate(1.4);
-  border: 1px solid rgba(100, 131, 73, 0.15);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255,255,255,0.4);
-  color: #2d3a2e;
-}
+.tl-accent-card--quote,
 .tl-accent-card--joy {
-  background: rgba(100, 131, 73, 0.1);
-  backdrop-filter: blur(20px) saturate(1.4);
-  -webkit-backdrop-filter: blur(20px) saturate(1.4);
-  border: 1px solid rgba(100, 131, 73, 0.18);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255,255,255,0.4);
+  position: relative;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15),
+              inset 0 4px 20px rgba(255, 255, 255, 0.25);
   color: #2d3a2e;
+  overflow: hidden;
+}
+.tl-accent-card--quote::after,
+.tl-accent-card--joy::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset -10px -8px 0px -11px rgba(255, 255, 255, 0.9),
+              inset 0px -9px 0px -8px rgba(255, 255, 255, 0.9);
+  opacity: 0.6;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(1px) brightness(115%);
+}
+.tl-accent-card--quote > *,
+.tl-accent-card--joy > * {
+  position: relative;
+  z-index: 1;
 }
 .tl-accent-label {
   display: block;
