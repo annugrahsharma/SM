@@ -1088,7 +1088,7 @@
   position: absolute;
   border-radius: 50%;
   filter: blur(40px);
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
 }
 .d2d-sidebar-blob--1 {
@@ -1173,7 +1173,7 @@
 .d2d-dropdown-menu.d2d-dropdown-open {
   transform: translateX(0);
 }
-.d2d-dropdown-menu > *:not(.lg-filter):not(.lg-overlay):not(.lg-specular) {
+.d2d-dropdown-menu > *:not(.lg-filter):not(.lg-overlay):not(.lg-specular):not(.d2d-sidebar-blob) {
   position: relative;
   z-index: 3;
 }
