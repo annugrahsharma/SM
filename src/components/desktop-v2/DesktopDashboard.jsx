@@ -351,16 +351,9 @@ function MemberProfilePage({ member, onBack, isOwnProfile }) {
             {member.inspiringQuote && (
               <div className="tl-timeline-item tl-timeline-item--accent">
                 <div className="tl-timeline-dot tl-dot--accent" />
-                <div className="tl-accent-blob-wrap">
-                  <div className="tl-accent-blob tl-accent-blob--1" />
-                  <div className="tl-accent-blob tl-accent-blob--3" />
-                  <div className="tl-accent-card tl-accent-card--quote">
-                    <div className="lg-filter" />
-                    <div className="lg-overlay" />
-                    <div className="lg-specular" />
-                    <span className="tl-accent-label">A quote that inspires me</span>
-                    <p className="tl-accent-text">{member.inspiringQuote}</p>
-                  </div>
+                <div className="tl-accent-card tl-accent-card--quote">
+                  <span className="tl-accent-label">A quote that inspires me</span>
+                  <p className="tl-accent-text">{member.inspiringQuote}</p>
                 </div>
               </div>
             )}
@@ -377,16 +370,9 @@ function MemberProfilePage({ member, onBack, isOwnProfile }) {
             {member.joyOutsideWork && (
               <div className="tl-timeline-item tl-timeline-item--accent">
                 <div className="tl-timeline-dot tl-dot--accent" />
-                <div className="tl-accent-blob-wrap">
-                  <div className="tl-accent-blob tl-accent-blob--4" />
-                  <div className="tl-accent-blob tl-accent-blob--2" />
-                  <div className="tl-accent-card tl-accent-card--joy">
-                    <div className="lg-filter" />
-                    <div className="lg-overlay" />
-                    <div className="lg-specular" />
-                    <span className="tl-accent-label">What fills me with joy</span>
-                    <p className="tl-accent-text">{member.joyOutsideWork}</p>
-                  </div>
+                <div className="tl-accent-card tl-accent-card--joy">
+                  <span className="tl-accent-label">What fills me with joy</span>
+                  <p className="tl-accent-text">{member.joyOutsideWork}</p>
                 </div>
               </div>
             )}
@@ -526,23 +512,7 @@ function DesktopDashboard() {
 
   return (
     <div className={`d2d-page ${sidebarCollapsed ? 'd2d-sidebar-collapsed' : ''}`}>
-      {/* SVG filter for liquid glass refraction */}
-      <svg style={{ display: 'none' }}>
-        <defs>
-          <filter id="lg-distortion" x="0%" y="0%" width="100%" height="100%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.008 0.008" numOctaves="2" seed="92" result="noise" />
-            <feGaussianBlur in="noise" stdDeviation="2" result="blurred" />
-            <feDisplacementMap in="SourceGraphic" in2="blurred" scale="50" xChannelSelector="R" yChannelSelector="G" />
-          </filter>
-        </defs>
-      </svg>
       <aside className="d2d-sidebar">
-        <div className="d2d-sidebar-blob d2d-sidebar-blob--1" />
-        <div className="d2d-sidebar-blob d2d-sidebar-blob--2" />
-        <div className="d2d-sidebar-blob d2d-sidebar-blob--3" />
-        <div className="lg-filter" />
-        <div className="lg-overlay" />
-        <div className="lg-specular" />
         <div className="d2d-sidebar-brand"><SuperMorpheusLogo size={28} /><span className="d2d-brand-name">Super Morpheus</span></div>
         <nav className="d2d-nav">
           {NAV_ITEMS.map(item => (
@@ -570,12 +540,6 @@ function DesktopDashboard() {
 
       {/* Dropdown menu — slides from top */}
       <div className={`d2d-dropdown-menu ${menuOpen ? 'd2d-dropdown-open' : ''}`}>
-        <div className="d2d-sidebar-blob d2d-sidebar-blob--1" />
-        <div className="d2d-sidebar-blob d2d-sidebar-blob--2" />
-        <div className="d2d-sidebar-blob d2d-sidebar-blob--3" />
-        <div className="lg-filter" />
-        <div className="lg-overlay" />
-        <div className="lg-specular" />
         <div className="d2d-dropdown-header">
           <button className="d2d-dropdown-close" onClick={() => setMenuOpen(false)} type="button" style={{ marginLeft: 'auto' }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
