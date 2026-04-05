@@ -242,59 +242,6 @@ function MemberProfilePage({ member, onBack, isOwnProfile }) {
         </div>
       )}
 
-      {/* Trailer — video / audio / text / fallback questions */}
-      {member.trailerVideo ? (
-        <div className="tl-trailer-card">
-          <div className="tl-trailer-video">
-            <div className="tl-trailer-play">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21" /></svg>
-            </div>
-            <span className="tl-trailer-label">Watch Trailer</span>
-            <span className="tl-trailer-duration">{member.trailerVideo.duration || '0:30'}</span>
-          </div>
-        </div>
-      ) : member.trailerAudio ? (
-        <div className="tl-trailer-card">
-          <div className="tl-trailer-audio" style={{ position: 'relative' }}>
-            <AudioWaveform color="#2d3a2e" duration={member.trailerAudio.duration} barCount={40} />
-          </div>
-          <div style={{ padding: '12px 22px 14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontFamily: 'var(--font-primary)', fontSize: '13px', fontWeight: 700, color: '#6b7c6e', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Listen to Introduction</span>
-            <span style={{ fontFamily: 'var(--font-secondary)', fontSize: '13px', color: '#8a9a8c' }}>{Icons.headphones} Audio Trailer</span>
-          </div>
-        </div>
-      ) : member.trailerText ? (
-        <div className="tl-trailer-card">
-          <div className="tl-trailer-text">
-            <div className="tl-trailer-text-header">
-              <span className="tl-trailer-text-icon">📝</span>
-              <span className="tl-trailer-text-label">Read Introduction</span>
-            </div>
-            <ExpandableText text={member.trailerText} lines={4} />
-          </div>
-        </div>
-      ) : (
-        <div className="tl-trailer-card">
-          <div className="tl-trailer-questions">
-            <div className="tl-trailer-questions-header">
-              <span className="tl-trailer-questions-icon">🎬</span>
-              <span className="tl-trailer-questions-title">{isOwnProfile ? 'Create Your Trailer' : `Get to Know ${member.firstName}`}</span>
-            </div>
-            <p className="tl-trailer-questions-subtitle">
-              {isOwnProfile ? 'Answer these questions to create a short introduction' : `${member.firstName} hasn't shared an introduction yet. Here's what we'd love to ask them:`}
-            </p>
-            <div className="tl-trailer-question-list">
-              {(member.trailerQuestions || ['What drives you every day?', 'What\'s your superpower?', 'What would surprise people about you?']).map((q, i) => (
-                <div key={i} className="tl-trailer-question-item">
-                  <span className="tl-trailer-question-num">{i + 1}</span>
-                  <span className="tl-trailer-question-text">{q}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Two-column: Sidebar (left) + Timeline */}
       <div className="d2d-profile-content">
         {/* Sidebar — now on the left */}
